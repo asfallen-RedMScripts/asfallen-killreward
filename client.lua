@@ -1,4 +1,3 @@
-
 local VORPcore = {}
 TriggerEvent("getCore", function(core)
     VORPcore = core
@@ -19,10 +18,14 @@ local function HealWithEffect(ped)
 end
 
 AddEventHandler("vorp_core:Client:OnPlayerDeath", function(killerserverid, causeofdeath)
-    if killerserverid then
+    local playerServerId = GetPlayerServerId(PlayerId())
+    
+    if killerserverid and killerserverid > 0 and killerserverid ~= playerServerId then
         local killerPed = GetPlayerPed(GetPlayerFromServerId(killerserverid))
-        HealWithEffect(killerPed)
-        TriggerServerEvent('PlayerKilled:HealKiller', killerserverid)
+        if killerPed and killerPed ~= 0 then
+            HealWithEffect(killerPed)
+            TriggerServerEvent('PlayerKilled:HealKiller', killerserverid)
+        end
     end
 end)
 

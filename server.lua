@@ -1,4 +1,3 @@
-
 local VORPcore = {}
 TriggerEvent("getCore", function(core)
     VORPcore = core
@@ -8,7 +7,7 @@ RegisterNetEvent("vorp_core:Server:OnPlayerDeath")
 AddEventHandler("vorp_core:Server:OnPlayerDeath", function(killerserverid, causeofdeath)
     local _source = source
     
-    if killerserverid and killerserverid ~= _source then
+    if killerserverid and killerserverid > 0 and killerserverid ~= _source then
         TriggerClientEvent("triggerParticleAndHeal", killerserverid)
     end
 end)
